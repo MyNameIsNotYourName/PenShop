@@ -42,10 +42,10 @@ public class AdminHome extends AppCompatActivity {
         HoaDon hoaDon = new HoaDon(1, "user1", "15/1/2022", 1, 1, 0);
         myRef.setValue(hoaDon);
         myRef = database.getReference("HoaDon/2");
-        HoaDon hoaDon2 = new HoaDon(1, "user2", "52/21/2022", 1, 1, 0);
-        myRef.setValue(hoaDon2);
+        HoaDon hoaDon2 = new HoaDon(2, "user2", "52/21/2022", 2, 2, 0);
+        myRef.setValue(hoaDon2);*/
 
-        myRef = database.getReference("ChiTietHoaDon/1/2");
+        /*myRef = database.getReference("ChiTietHoaDon/1/2");
         myRef.setValue(2);
         myRef = database.getReference("ChiTietHoaDon/2/4");
         myRef.setValue(1);

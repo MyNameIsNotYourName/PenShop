@@ -1,16 +1,16 @@
 package hcmute.truongtrangiahung.cuoiky.Model;
 
 public class ItemChiTietDonHang {
-    private int hinh;
+    private String hinh;
     private String tenSanPham;
     private int soLuongSanPham;
     private String tongGiaSanPham;
 
-    public int getHinh() {
+    public String getHinh() {
         return hinh;
     }
 
-    public void setHinh(int hinh) {
+    public void setHinh(String hinh) {
         this.hinh = hinh;
     }
 
@@ -41,7 +41,7 @@ public class ItemChiTietDonHang {
     public ItemChiTietDonHang() {
     }
 
-    public ItemChiTietDonHang(int hinh, String tenSanPham, int soLuongSanPham, String tongGiaSanPham) {
+    public ItemChiTietDonHang(String hinh, String tenSanPham, int soLuongSanPham, String tongGiaSanPham) {
         this.hinh = hinh;
         this.tenSanPham = tenSanPham;
         this.soLuongSanPham = soLuongSanPham;

@@ -98,7 +98,6 @@ public class QuanLyDonHang extends AppCompatActivity {
                         TaiKhoan taiKhoan = dataSnapshot.getValue(TaiKhoan.class);
                         if (taiKhoan.getTenTaiKhoan().equals(tenTaiKhoan)) {
                             taiKhoanChinh = taiKhoan;
-                            System.out.println("Success");
                         }
                     }
                 }
@@ -116,6 +115,7 @@ public class QuanLyDonHang extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(QuanLyDonHang.this, ChiTietDonHang.class);
+                intent.putExtra("hoaDon", arrayHoaDon.get(i).getId());
                 startActivity(intent);
             }
         });

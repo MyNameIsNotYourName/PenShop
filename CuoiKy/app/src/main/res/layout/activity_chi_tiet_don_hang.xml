@@ -91,7 +91,7 @@
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="8dp"
                             android:layout_marginTop="3dp"
-                            android:text="Ngày mua"
+                            android:text="Email"
                             android:textColor="@color/blue"
                             android:textSize="20sp" />
 
@@ -123,7 +123,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/txtNgayLap"
+                            android:id="@+id/txt_DiaChi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
