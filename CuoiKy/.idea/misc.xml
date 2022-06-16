@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/drawable/round_corner.xml" value="0.1805" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_admin_home.xml" value="0.264" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_chi_tiet_danh_muc.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_chi_tiet_don_hang.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_chi_tiet_san_pham.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_chi_tiet_tai_khoan.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_chi_tiet_thuong_hieu.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_don_hang.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_main.xml" value="0.1265625" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_quan_ly_danh_muc.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_quan_ly_don_hang.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_quan_ly_san_pham.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_quan_ly_tai_khoan.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_quan_ly_thuong_hieu.xml" value="0.25885416666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_them_danh_muc.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_them_san_pham.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/activity_them_thuong_hieu.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/item_admin_home.xml" value="0.27447916666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_action_bar.xml" value="0.2578125" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_chi_tiet_don_hang.xml" value="0.264" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_chi_tiet_quan_ly.xml" value="0.2" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_don_hang.xml" value="0.16" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_item_chi_tiet_don_hang.xml" value="0.2734375" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_item_chi_tiet_quan_ly.xml" value="0.25885416666666666" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/layout/layout_item_quan_ly_don_hang.xml" value="0.2734375" />
+        <entry key="..\:/AndoidApps/LapTrinhDiDong/CuoiKy/app/src/main/res/menu/menu.xml" value="0.25885416666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

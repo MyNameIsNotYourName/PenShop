@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "503564375462",
+    "project_id": "penshop-f6b89",
+    "storage_bucket": "penshop-f6b89.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:503564375462:android:c050644358b6da835c6b67",
+        "android_client_info": {
+          "package_name": "hcmute.truongtrangiahung.cuoiky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "503564375462-ventn9eeplrpm93g1r6oircln7uah5la.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAquQlaCIie15IbmJqg0OvBrB1M7WBTCd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "503564375462-ventn9eeplrpm93g1r6oircln7uah5la.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
