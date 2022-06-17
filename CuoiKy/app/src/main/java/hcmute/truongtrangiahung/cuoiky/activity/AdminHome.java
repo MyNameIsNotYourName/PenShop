@@ -37,12 +37,12 @@ public class AdminHome extends AppCompatActivity {
         myRef.setValue(taiKhoan2);*/
 
 
-        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
+      /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("HoaDon/1");
-        HoaDon hoaDon = new HoaDon(1, "user1", "15/1/2022", 1, 1, 0);
+        HoaDon hoaDon = new HoaDon(1, "user1", "15/1/2022", 1, 1, "1", "1", "1", "1", "1", 0);
         myRef.setValue(hoaDon);
         myRef = database.getReference("HoaDon/2");
-        HoaDon hoaDon2 = new HoaDon(2, "user2", "52/21/2022", 2, 2, 0);
+        HoaDon hoaDon2 = new HoaDon(2, "user2", "52/21/2022", 2, 2, "2", "2", "2", "2", "2",0);
         myRef.setValue(hoaDon2);*/
 
         /*myRef = database.getReference("ChiTietHoaDon/1/2");

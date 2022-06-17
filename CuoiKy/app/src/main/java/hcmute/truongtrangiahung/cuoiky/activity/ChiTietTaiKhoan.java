@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
@@ -48,30 +50,38 @@ public class ChiTietTaiKhoan extends AppCompatActivity {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String tempID = snapshot.getKey();
-                System.out.println("Id: " + tempID);
-                if(tempID.equals(id))
-                {
-                    taiKhoan = snapshot.getValue(TaiKhoan.class);
+                final Handler handler = new Handler();
+                final LoadingDialog dialog = new LoadingDialog(ChiTietTaiKhoan.this);
+                dialog.startLoadingDialog();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String tempID = snapshot.getKey();
+                        System.out.println("Id: " + tempID);
+                        if(tempID.equals(id))
+                        {
+                            taiKhoan = snapshot.getValue(TaiKhoan.class);
 
-                    txt_TenTaiKhoan.setText(taiKhoan.getTenTaiKhoan());
-                    edt_TenNguoiDung.setText(taiKhoan.getTen());
-                    edt_DiaChi.setText(taiKhoan.getDiaChi());
-                    edt_SoDienThoai.setText(taiKhoan.getSDT());
-                    edt_Email.setText(taiKhoan.getEmail());
+                            txt_TenTaiKhoan.setText(taiKhoan.getTenTaiKhoan());
+                            edt_TenNguoiDung.setText(taiKhoan.getTen());
+                            edt_DiaChi.setText(taiKhoan.getDiaChi());
+                            edt_SoDienThoai.setText(taiKhoan.getSDT());
+                            edt_Email.setText(taiKhoan.getEmail());
 
-                    if(taiKhoan.isQuyen())
-                    {
-                        String role = "Admin";
-                        edt_VaiTro.setText(role);
+                            if(taiKhoan.isQuyen())
+                            {
+                                String role = "Admin";
+                                edt_VaiTro.setText(role);
+                            }
+                            else {
+                                String role = "Khách";
+                                edt_VaiTro.setText(role);
+                            }
+                        }
+                        dialog.dismissLoadingDialog();
                     }
-                    else {
-                        String role = "Khách";
-                        edt_VaiTro.setText(role);
-                    }
+                }, 1500);
 
-                    //System.exit(0);
-                }
             }
 
             @Override

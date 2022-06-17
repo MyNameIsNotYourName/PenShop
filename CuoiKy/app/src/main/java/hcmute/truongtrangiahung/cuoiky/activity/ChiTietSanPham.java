@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.view.View;
@@ -46,6 +47,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.R;
 
@@ -86,7 +88,6 @@ public class ChiTietSanPham extends AppCompatActivity {
         SetID();
         GetIntent();
         TaiDuLieu();
-        LoadSpinnerData();
         Event();
     }
 
@@ -100,24 +101,31 @@ public class ChiTietSanPham extends AppCompatActivity {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String tempID = snapshot.getKey();
-                if(tempID.equals(id))
-                {
-                    sanPham = snapshot.getValue(SanPham.class);
+                final Handler handler = new Handler();
+                final LoadingDialog dialog = new LoadingDialog(ChiTietSanPham.this);
+                dialog.startLoadingDialog();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String tempID = snapshot.getKey();
+                        if(tempID.equals(id))
+                        {
+                            LoadSpinnerData();
+                            sanPham = snapshot.getValue(SanPham.class);
 
-                    txt_MaSanPham.setText(String.valueOf(sanPham.getId()));
-                    edt_TenSanPham.setText(sanPham.getTenSP());
-                    edt_GiaSanPham.setText(sanPham.getGia());
-                    edt_DaBan.setText(String.valueOf(sanPham.getDaBan()));
-                    edt_ConLai.setText(String.valueOf(sanPham.getConLai()));
-                    edt_MoTa.setText(sanPham.getMoTa());
+                            txt_MaSanPham.setText(String.valueOf(sanPham.getId()));
+                            edt_TenSanPham.setText(sanPham.getTenSP());
+                            edt_GiaSanPham.setText(sanPham.getGia());
+                            edt_DaBan.setText(String.valueOf(sanPham.getDaBan()));
+                            edt_ConLai.setText(String.valueOf(sanPham.getConLai()));
+                            edt_MoTa.setText(sanPham.getMoTa());
+                            backgroundImageName = sanPham.getHinhAnh();
+                            RetrieveImage();
+                        }
+                        dialog.dismissLoadingDialog();
+                    }
+                }, 1500);
 
-                    System.out.println("SPDM: " + sanPham.getDanhMuc());
-                    System.out.println("SPTH: " + sanPham.getThuongHieu());
-
-                    backgroundImageName = sanPham.getHinhAnh();
-                    RetrieveImage();
-                }
             }
 
             @Override

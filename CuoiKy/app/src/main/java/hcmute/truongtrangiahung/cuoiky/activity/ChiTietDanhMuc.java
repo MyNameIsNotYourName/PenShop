@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import hcmute.truongtrangiahung.cuoiky.Model.DanhMuc;
 import hcmute.truongtrangiahung.cuoiky.Model.IdLib;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietQuanLy;
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietDanhMuc extends AppCompatActivity {
@@ -54,17 +56,25 @@ public class ChiTietDanhMuc extends AppCompatActivity {
         query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                String tempID = snapshot.getKey();
-                System.out.println("Id: " + tempID);
-                if(tempID.equals(id))
-                {
-                    String temp = snapshot.getValue(String.class);
-                    danhMuc.setTenDanhMuc(temp);
+                final Handler handler = new Handler();
+                final LoadingDialog dialog = new LoadingDialog(ChiTietDanhMuc.this);
+                dialog.startLoadingDialog();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String tempID = snapshot.getKey();
+                        System.out.println("Id: " + tempID);
+                        if(tempID.equals(id))
+                        {
+                            String temp = snapshot.getValue(String.class);
+                            danhMuc.setTenDanhMuc(temp);
 
-                    txt_MaDanhMuc.setText(String.valueOf(danhMuc.getId()));
-                    edt_TenDanhMuc.setText(danhMuc.getTenDanhMuc());
-                    //System.exit(0);
-                }
+                            txt_MaDanhMuc.setText(String.valueOf(danhMuc.getId()));
+                            edt_TenDanhMuc.setText(danhMuc.getTenDanhMuc());
+                        }
+                        dialog.dismissLoadingDialog();
+                    }
+                }, 1500);
             }
 
             @Override

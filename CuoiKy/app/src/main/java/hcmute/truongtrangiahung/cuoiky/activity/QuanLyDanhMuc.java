@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import hcmute.truongtrangiahung.cuoiky.Adapter.ItemChiTietQuanLyAdapter;
 import hcmute.truongtrangiahung.cuoiky.Model.DanhMuc;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietQuanLy;
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.R;
 
@@ -85,14 +87,24 @@ public class QuanLyDanhMuc extends AppCompatActivity {
                 arrayDanhMuc.clear();
                 if(snapshot.getChildrenCount() > 0) {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                        DanhMuc danhMuc = new DanhMuc();
-                        danhMuc.setTenDanhMuc(dataSnapshot.getValue(String.class));
-                        danhMuc.setId(Integer.parseInt(dataSnapshot.getKey()));
+                        final Handler handler = new Handler();
+                        final LoadingDialog dialog = new LoadingDialog(QuanLyDanhMuc.this);
+                        dialog.startLoadingDialog();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                DanhMuc danhMuc = new DanhMuc();
+                                danhMuc.setTenDanhMuc(dataSnapshot.getValue(String.class));
+                                danhMuc.setId(Integer.parseInt(dataSnapshot.getKey()));
 
-                        ItemChiTietQuanLy item = new ItemChiTietQuanLy("0", danhMuc);
-                        arrayList.add(item);
-                        arrayDanhMuc.add(danhMuc);
-                        adapter.notifyDataSetChanged();
+                                ItemChiTietQuanLy item = new ItemChiTietQuanLy("0", danhMuc);
+                                arrayList.add(item);
+                                arrayDanhMuc.add(danhMuc);
+                                adapter.notifyDataSetChanged();
+                                dialog.dismissLoadingDialog();
+                            }
+                        }, 1500);
+
                     }
 
                 }

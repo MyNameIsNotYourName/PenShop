@@ -25,6 +25,7 @@ import hcmute.truongtrangiahung.cuoiky.Adapter.ItemQuanLyDonHangAdapter;
 import hcmute.truongtrangiahung.cuoiky.Model.HoaDon;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietQuanLy;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemQuanLyDonHang;
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
@@ -36,7 +37,6 @@ public class QuanLyDonHang extends AppCompatActivity {
     private ImageView imageView, img_Add, img_Edit;
 
     private ArrayList<HoaDon> arrayHoaDon = new ArrayList<>();
-    private TaiKhoan taiKhoanChinh = new TaiKhoan();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +48,6 @@ public class QuanLyDonHang extends AppCompatActivity {
     }
 
     private void TaiDuLieu() {
-        GetUser("user1");
-
-
-
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("HoaDon");
 
@@ -64,17 +60,22 @@ public class QuanLyDonHang extends AppCompatActivity {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         HoaDon hoaDon = dataSnapshot.getValue(HoaDon.class);
 
-                        GetUser(hoaDon.getTenTaiKhoan());
+                        //GetUser(hoaDon.getTenTaiKhoan());
                         final Handler handler = new Handler();
+                        final LoadingDialog dialog = new LoadingDialog(QuanLyDonHang.this);
+                        dialog.startLoadingDialog();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                ItemQuanLyDonHang item = new ItemQuanLyDonHang(hoaDon.getId(), taiKhoanChinh.getEmail(), hoaDon.getNgay());
+
+                                ItemQuanLyDonHang item = new ItemQuanLyDonHang(hoaDon.getId(), hoaDon.getEmail(), hoaDon.getNgay());
                                 arrayList.add(item);
                                 arrayHoaDon.add(hoaDon);
                                 adapter.notifyDataSetChanged();
+                                dialog.dismissLoadingDialog();
                             }
                         }, 1500);
+
                     }
                 }
             }
@@ -82,29 +83,6 @@ public class QuanLyDonHang extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-    }
-
-    private void GetUser(String tenTaiKhoan) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TaiKhoan");
-
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.getChildrenCount() > 0) {
-                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                        TaiKhoan taiKhoan = dataSnapshot.getValue(TaiKhoan.class);
-                        if (taiKhoan.getTenTaiKhoan().equals(tenTaiKhoan)) {
-                            taiKhoanChinh = taiKhoan;
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }

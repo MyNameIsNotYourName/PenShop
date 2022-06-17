@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import hcmute.truongtrangiahung.cuoiky.Adapter.ItemChiTietQuanLyAdapter;
 import hcmute.truongtrangiahung.cuoiky.Model.DanhMuc;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietQuanLy;
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
@@ -75,11 +77,21 @@ public class QuanLyTaiKhoan extends AppCompatActivity {
                 arrayTaiKhoan.clear();
                 if(snapshot.getChildrenCount() > 0) {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                        TaiKhoan taiKhoan = dataSnapshot.getValue(TaiKhoan.class);
-                        ItemChiTietQuanLy item = new ItemChiTietQuanLy("0", taiKhoan);
-                        arrayList.add(item);
-                        arrayTaiKhoan.add(taiKhoan);
-                        adapter.notifyDataSetChanged();
+                        final Handler handler = new Handler();
+                        final LoadingDialog dialog = new LoadingDialog(QuanLyTaiKhoan.this);
+                        dialog.startLoadingDialog();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                TaiKhoan taiKhoan = dataSnapshot.getValue(TaiKhoan.class);
+                                ItemChiTietQuanLy item = new ItemChiTietQuanLy("0", taiKhoan);
+                                arrayList.add(item);
+                                arrayTaiKhoan.add(taiKhoan);
+                                adapter.notifyDataSetChanged();
+                                dialog.dismissLoadingDialog();
+                            }
+                        }, 1500);
+
                     }
 
                 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import hcmute.truongtrangiahung.cuoiky.Adapter.ItemChiTietQuanLyAdapter;
 import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietQuanLy;
+import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.R;
 
@@ -39,12 +41,11 @@ public class QuanLySanPham extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quan_ly_san_pham);
         SetID();
+        TaiDuLieu();
         Event();
     }
 
     private void Event() {
-        TaiDuLieu();
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,11 +84,21 @@ public class QuanLySanPham extends AppCompatActivity {
                 arraySanPham.clear();
                 if(snapshot.getChildrenCount() > 0) {
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
-                        SanPham sanPham = dataSnapshot.getValue(SanPham.class);
-                        ItemChiTietQuanLy item = new ItemChiTietQuanLy(sanPham.getHinhAnh(), sanPham);
-                        arrayList.add(item);
-                        arraySanPham.add(sanPham);
-                        adapter.notifyDataSetChanged();
+                        final Handler handler = new Handler();
+                        final LoadingDialog dialog = new LoadingDialog(QuanLySanPham.this);
+                        dialog.startLoadingDialog();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                SanPham sanPham = dataSnapshot.getValue(SanPham.class);
+                                ItemChiTietQuanLy item = new ItemChiTietQuanLy(sanPham.getHinhAnh(), sanPham);
+                                arrayList.add(item);
+                                arraySanPham.add(sanPham);
+                                adapter.notifyDataSetChanged();
+                                dialog.dismissLoadingDialog();
+                            }
+                        }, 1500);
+
                     }
 
                 }
