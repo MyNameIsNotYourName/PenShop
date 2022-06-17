@@ -52,6 +52,7 @@ public class ItemChiTietDonHangAdapter extends BaseAdapter {
         return 0;
     }
 
+    // Lấy dữ liệu và hiển thị view ra màn hình
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -74,6 +75,7 @@ public class ItemChiTietDonHangAdapter extends BaseAdapter {
         return view;
     }
 
+    // Lấy hình ảnh từ Storage thông qua arrayList.get(i).getHinh()
     public void RetrieveImage(View view, ImageView imageView, int i){
         String name  = arrayList.get(i).getHinh();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("Image/ " + name);

@@ -36,6 +36,7 @@ public class ItemQuanLyDonHangAdapter extends BaseAdapter {
         this.arrayList = arrayList;
     }
 
+    // Lấy dữ liệu và hiển thị view ra màn hình
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -44,8 +45,6 @@ public class ItemQuanLyDonHangAdapter extends BaseAdapter {
         TextView maDonHang = view.findViewById(R.id.txt_MaDonHang);
         TextView email = view.findViewById(R.id.txt_Email);
         TextView ngayDatHang = view.findViewById(R.id.txt_NgayDatHang);
-
-
 
         maDonHang.setText(String.valueOf(arrayList.get(i).getMaDonHang()));
         email.setText(arrayList.get(i).getEmail());

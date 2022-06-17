@@ -44,6 +44,7 @@ public class ChiTietThuongHieu extends AppCompatActivity {
         Event();
     }
 
+    // Lấy dữ liệu từ Firebase và lưu vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ThuongHieu");
@@ -98,11 +99,13 @@ public class ChiTietThuongHieu extends AppCompatActivity {
         });
     }
 
+    // Lấy dữ liệu từ QuanLyThuongHieu
     private void GetIntent() {
         Intent intent = getIntent();
         thuongHieu.setId( intent.getIntExtra("thuongHieu", -1));
     }
 
+    // thực thi các sự kiện khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.INVISIBLE);
         img_Back.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +118,7 @@ public class ChiTietThuongHieu extends AppCompatActivity {
         img_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                edt_TenThuongHieu.setEnabled(true);
                 edt_TenThuongHieu.setFocusable(true);
                 table_LuuThayDoi.setVisibility(View.VISIBLE);
             }
@@ -135,12 +139,14 @@ public class ChiTietThuongHieu extends AppCompatActivity {
         });
     }
 
+    // Cài đặt dữ liệu và hiển thị mặc định
     private void CaiDatMacDinh() {
-        edt_TenThuongHieu.setFocusable(false);
+        edt_TenThuongHieu.setEnabled(false);
         table_LuuThayDoi.setVisibility(View.INVISIBLE);
         edt_TenThuongHieu.setText(thuongHieu.getTenThuongHieu());
     }
 
+    // lưu những thay đổi và cập nhật lên Firebase
     private void LuuThayDoi() {
         //Lấy id danh mục
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -169,6 +175,7 @@ public class ChiTietThuongHieu extends AppCompatActivity {
         });
     }
 
+    // Gán id cho các biến
     private void SetID() {
         img_Add = findViewById(R.id.img_Add);
         img_Back = findViewById(R.id.img_Back);

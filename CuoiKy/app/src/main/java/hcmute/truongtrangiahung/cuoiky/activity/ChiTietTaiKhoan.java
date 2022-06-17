@@ -40,6 +40,8 @@ public class ChiTietTaiKhoan extends AppCompatActivity {
         TaiDuLieu();
         Event();
     }
+
+    //Lấy dữ liệu từ Firebase lưu vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("TaiKhoan");
@@ -106,11 +108,13 @@ public class ChiTietTaiKhoan extends AppCompatActivity {
         });
     }
 
+    // Lấy dữ liệu từ QuanLyTaiKhoan
     private void GetIntent() {
         Intent intent = getIntent();
         taiKhoan.setTenTaiKhoan( intent.getStringExtra("taiKhoan"));
     }
 
+    // thực thi các sự kiện khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.GONE);
         img_Edit.setVisibility(View.GONE);
@@ -122,6 +126,7 @@ public class ChiTietTaiKhoan extends AppCompatActivity {
         });
     }
 
+    // gán id vào các biến
     private void SetID() {
         img_Add = findViewById(R.id.img_Add);
         img_Back = findViewById(R.id.img_Back);

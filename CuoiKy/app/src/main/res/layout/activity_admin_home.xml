@@ -36,7 +36,7 @@
            android:layout_marginStart="10dp"
            android:layout_marginTop="10dp"
            android:padding="5dp"
-           android:src="@drawable/avatar"
+           android:src="@drawable/user_icon"
            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
            app:strokeColor="@color/white"
            app:strokeWidth="1dp" />

@@ -40,12 +40,12 @@ public class QuanLyThuongHieu extends AppCompatActivity {
         setContentView(R.layout.activity_quan_ly_thuong_hieu);
 
         SetID();
+        TaiDuLieu();
         Event();
     }
 
+    // thực thi các sự kiến khi người dùng thao tác
     private void Event() {
-        TaiDuLieu();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -73,6 +73,7 @@ public class QuanLyThuongHieu extends AppCompatActivity {
         img_Edit.setVisibility(View.GONE);
     }
 
+    // Lấy dữ liệu từ Firebase để gán vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ThuongHieu");
@@ -113,6 +114,7 @@ public class QuanLyThuongHieu extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
+    // Gán id vào các biến, cài đặt adapter và thiết lập ban đầu
     private void SetID() {
         listView = findViewById(R.id.list_QuanLySanPham);
         imageView = findViewById(R.id.img_Back);

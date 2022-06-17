@@ -47,6 +47,7 @@ public class QuanLyDonHang extends AppCompatActivity {
         Event();
     }
 
+    // Lấy dữ liệu từ Firebase để gán vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("HoaDon");
@@ -87,7 +88,7 @@ public class QuanLyDonHang extends AppCompatActivity {
         });
     }
 
-
+    // thực thi các sự kiến khi người dùng thao tác
     private void Event() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -109,7 +110,7 @@ public class QuanLyDonHang extends AppCompatActivity {
         img_Edit.setVisibility(View.INVISIBLE);
     }
 
-
+    // Gán id vào các biến, cài đặt adapter và thiết lập ban đầu
     private void SetID() {
         listView = findViewById(R.id.list_QuanLyDonHang);
         imageView = findViewById(R.id.img_Back);

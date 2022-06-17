@@ -41,12 +41,12 @@ public class QuanLyDanhMuc extends AppCompatActivity {
         setContentView(R.layout.activity_quan_ly_danh_muc);
 
         SetID();
+        TaiDuLieu();
         Event();
     }
 
+    // thực thi các sự kiện khi người dùng thao tác
     private void Event() {
-        TaiDuLieu();
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,6 +76,7 @@ public class QuanLyDanhMuc extends AppCompatActivity {
 
     }
 
+    // Lấy dữ liệu từ Firebase để gán vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("DanhMuc");
@@ -116,6 +117,7 @@ public class QuanLyDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Gán id vào các biến, cài đặt adapter và thiết lập ban đầu
     private void SetID() {
         listView = findViewById(R.id.list_QuanLySanPham);
         imageView = findViewById(R.id.img_Back);

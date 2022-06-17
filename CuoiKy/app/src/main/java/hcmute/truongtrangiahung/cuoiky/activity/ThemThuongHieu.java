@@ -34,6 +34,8 @@ public class ThemThuongHieu extends AppCompatActivity {
         SetID();
         Event();
     }
+
+    // thực thi các sự kiện khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.INVISIBLE);
         img_Edit.setVisibility(View.INVISIBLE);
@@ -51,6 +53,8 @@ public class ThemThuongHieu extends AppCompatActivity {
         });
     }
 
+
+    // Thêm dữ liệu vào Firebase
     private void ThemDuLieu() {
         //Lấy id danh mục
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -81,10 +85,12 @@ public class ThemThuongHieu extends AppCompatActivity {
         });
     }
 
+    // Cài đặt dữ liệu mặc định
     private void CaiDatMacDinh() {
         edt_TenThuongHieu.setText("");
     }
 
+    // Gán id vào các biến
     private void SetID() {
         edt_TenThuongHieu = findViewById(R.id.edt_TenThuongHieu);
         btn_Luu = findViewById(R.id.btn_Luu);

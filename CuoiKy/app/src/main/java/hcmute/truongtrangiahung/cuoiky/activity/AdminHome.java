@@ -1,5 +1,6 @@
 package hcmute.truongtrangiahung.cuoiky.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -8,9 +9,13 @@ import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import hcmute.truongtrangiahung.cuoiky.Model.ChiTietHoaDon;
 import hcmute.truongtrangiahung.cuoiky.Model.HoaDon;
@@ -20,46 +25,47 @@ import hcmute.truongtrangiahung.cuoiky.R;
 
 public class AdminHome extends AppCompatActivity {
     private CardView quanLyDonHang, quanLySanPham, quanLyDanhMuc, quanLyThuongHieu, quanLyTaiKhoan;
+    private TextView txt_TenTaiKhoan;
+    private String idUser = "user1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_home);
         SetID();
+        TaiDuLieu();
         Event();
-
-        /*FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("TaiKhoan/user1");
-        TaiKhoan taiKhoan = new TaiKhoan("user1", "1", "1", "1", "1", "1", false);
-        myRef.setValue(taiKhoan);
-        myRef = database.getReference("TaiKhoan/user2");
-        TaiKhoan taiKhoan2 = new TaiKhoan("user2", "2", "2", "2", "2", "2", false);
-        myRef.setValue(taiKhoan2);*/
-
-
-      /*  FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("HoaDon/1");
-        HoaDon hoaDon = new HoaDon(1, "user1", "15/1/2022", 1, 1, "1", "1", "1", "1", "1", 0);
-        myRef.setValue(hoaDon);
-        myRef = database.getReference("HoaDon/2");
-        HoaDon hoaDon2 = new HoaDon(2, "user2", "52/21/2022", 2, 2, "2", "2", "2", "2", "2",0);
-        myRef.setValue(hoaDon2);*/
-
-        /*myRef = database.getReference("ChiTietHoaDon/1/2");
-        myRef.setValue(2);
-        myRef = database.getReference("ChiTietHoaDon/2/4");
-        myRef.setValue(1);
-        myRef = database.getReference("ChiTietHoaDon/2/5");
-        myRef.setValue(3);*/
-
     }
 
+    // Lấy dữ liệu TaiKhoan từ firebase
+    private void TaiDuLieu() {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("TaiKhoan/" + idUser);
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("Snap: " + snapshot);
+                if(snapshot.exists()){
+                    System.out.println("Hey");
+                    TaiKhoan taiKhoan = snapshot.getValue(TaiKhoan.class);
+                    txt_TenTaiKhoan.setText(taiKhoan.getTenTaiKhoan());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    // Thực thi các sự kiện trong Activity
     private void Event() {
-        HieuUngKhiClick();
         ChuyenTrang();
 
     }
 
+    // Chuyển đến các Activity tương ứng với các mục chức năng
     private void ChuyenTrang() {
         quanLyDonHang.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,91 +104,14 @@ public class AdminHome extends AppCompatActivity {
         });
     }
 
-
+    //Gán các id vào các biến
     private void SetID() {
         quanLyDonHang = findViewById(R.id.card_QuanLyDonHang);
         quanLySanPham = findViewById(R.id.card_QuanLySanPham);
         quanLyDanhMuc = findViewById(R.id.card_QuanLyDanhMuc);
         quanLyThuongHieu = findViewById(R.id.card_QuanLyThuongHieu);
         quanLyTaiKhoan = findViewById(R.id.card_QuanLyTaiKhoan);
+        txt_TenTaiKhoan = findViewById(R.id.txtTenTaiKhoan);
     }
 
-    private void HieuUngKhiClick() {
-        quanLyDonHang.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    v.getBackground().setColorFilter(0xe033ccff, PorterDuff.Mode.SRC_ATOP);
-                    v.invalidate();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    v.getBackground().clearColorFilter();
-                    v.invalidate();
-                    break;
-                }
-            }
-            return false;
-        });
-        quanLySanPham.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    v.getBackground().setColorFilter(0xe033ccff, PorterDuff.Mode.SRC_ATOP);
-                    v.invalidate();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    v.getBackground().clearColorFilter();
-                    v.invalidate();
-                    break;
-                }
-            }
-            return false;
-        });
-        quanLyDanhMuc.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    v.getBackground().setColorFilter(0xe033ccff, PorterDuff.Mode.SRC_ATOP);
-                    v.invalidate();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    v.getBackground().clearColorFilter();
-                    v.invalidate();
-                    break;
-                }
-            }
-            return false;
-        });
-        quanLyThuongHieu.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    v.getBackground().setColorFilter(0xe033ccff, PorterDuff.Mode.SRC_ATOP);
-                    v.invalidate();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    v.getBackground().clearColorFilter();
-                    v.invalidate();
-                    break;
-                }
-            }
-            return false;
-        });
-        quanLyTaiKhoan.setOnTouchListener((v, event) -> {
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_DOWN: {
-                    v.getBackground().setColorFilter(0xe033ccff, PorterDuff.Mode.SRC_ATOP);
-                    v.invalidate();
-                    break;
-                }
-                case MotionEvent.ACTION_UP: {
-                    v.getBackground().clearColorFilter();
-                    v.invalidate();
-                    break;
-                }
-            }
-            return false;
-        });
-
-    }
 }

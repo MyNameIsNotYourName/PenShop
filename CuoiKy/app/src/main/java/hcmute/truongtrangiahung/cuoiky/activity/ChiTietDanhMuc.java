@@ -34,7 +34,7 @@ public class ChiTietDanhMuc extends AppCompatActivity {
     private TextView txt_MaDanhMuc, txt_HuyThayDoi, txt_LuuThayDoi;
     private TableLayout table_LuuThayDoi;
 
-    private DanhMuc danhMuc = new DanhMuc();
+    private DanhMuc danhMuc = new DanhMuc(); // Chứa dữ liệu từ intent chuyển qua
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class ChiTietDanhMuc extends AppCompatActivity {
         Event();
     }
 
+    // Tải dữ liệu lưu vào các View từ firebase
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("DanhMuc");
@@ -58,12 +59,11 @@ public class ChiTietDanhMuc extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 final Handler handler = new Handler();
                 final LoadingDialog dialog = new LoadingDialog(ChiTietDanhMuc.this);
-                dialog.startLoadingDialog();
-                handler.postDelayed(new Runnable() {
+                dialog.startLoadingDialog(); // Hiển thị hoạt ảnh loading
+                handler.postDelayed(new Runnable() { // thực thi các lệnh trong hàm run sau 1,5s
                     @Override
                     public void run() {
                         String tempID = snapshot.getKey();
-                        System.out.println("Id: " + tempID);
                         if(tempID.equals(id))
                         {
                             String temp = snapshot.getValue(String.class);
@@ -72,7 +72,7 @@ public class ChiTietDanhMuc extends AppCompatActivity {
                             txt_MaDanhMuc.setText(String.valueOf(danhMuc.getId()));
                             edt_TenDanhMuc.setText(danhMuc.getTenDanhMuc());
                         }
-                        dialog.dismissLoadingDialog();
+                        dialog.dismissLoadingDialog(); // tắt hoạt ảnh loading
                     }
                 }, 1500);
             }
@@ -99,14 +99,18 @@ public class ChiTietDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Nhận giá trị DanhMuc từ activity QuanLyDanhMuc
     private void GetIntent() {
         Intent intent = getIntent();
         danhMuc.setId( intent.getIntExtra("danhMuc", -1));
     }
 
+    // Thực thi các sự kiện khi người dùng thao tác với các View
     private void Event() {
+        // Ẩn img_Add
         img_Add.setVisibility(View.GONE);
 
+        // Đóng Activity
         img_Back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,14 +118,17 @@ public class ChiTietDanhMuc extends AppCompatActivity {
             }
         });
 
+        // Cho phép thao tác với các View
         img_Edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                edt_TenDanhMuc.setEnabled(true);
                 edt_TenDanhMuc.setFocusable(true);
                 table_LuuThayDoi.setVisibility(View.VISIBLE);
             }
         });
 
+        // Thực thi hàm CaiDatMacDinh
         txt_HuyThayDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +136,7 @@ public class ChiTietDanhMuc extends AppCompatActivity {
             }
         });
 
+        // Thực thi hàm LuuThayDoi
         txt_LuuThayDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,12 +145,14 @@ public class ChiTietDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Trở về cài đăt mặc định, các View không thể thao tác
     private void CaiDatMacDinh() {
-        edt_TenDanhMuc.setFocusable(false);
+        edt_TenDanhMuc.setEnabled(false);
         table_LuuThayDoi.setVisibility(View.INVISIBLE);
         edt_TenDanhMuc.setText(danhMuc.getTenDanhMuc());
     }
 
+    //Lưu dữ liệu thay đổi vào firebase
     private void LuuThayDoi() {
         //Lấy id danh mục
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -171,6 +181,7 @@ public class ChiTietDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Gán id vào các biến
     private void SetID() {
         img_Add = findViewById(R.id.img_Add);
         img_Back = findViewById(R.id.img_Back);

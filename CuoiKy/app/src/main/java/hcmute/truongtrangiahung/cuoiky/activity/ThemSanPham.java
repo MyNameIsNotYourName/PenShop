@@ -88,6 +88,7 @@ public class ThemSanPham extends AppCompatActivity {
         Event();
     }
 
+    // Tải dữ liệu từ Firebase và chuyền vào Spinner
     private void LoadSpinnerData() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("DanhMuc");
@@ -126,6 +127,7 @@ public class ThemSanPham extends AppCompatActivity {
         });
     }
 
+    // thực thi các sự kiến khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.INVISIBLE);
         img_Edit.setVisibility(View.INVISIBLE);
@@ -183,6 +185,7 @@ public class ThemSanPham extends AppCompatActivity {
         });
     }
 
+    // Kiểm tra hợp lệ khi nhập dữ liệu
     private boolean HopLe() {
         String ten = edtTenSanPham.getText().toString().trim();
         String gia = edtGia.getText().toString().trim();
@@ -196,6 +199,7 @@ public class ThemSanPham extends AppCompatActivity {
         return true;
     }
 
+    //Lưu dữ liệu vào Firebase
     private void LuuDuLieu() {
         int danhMuc = Integer.parseInt(arrayListDanhMuc.get(indexDanhMuc));
         int thuongHieu = Integer.parseInt(arrayListThuongHieu.get(indexThuongHieu));
@@ -235,6 +239,7 @@ public class ThemSanPham extends AppCompatActivity {
 
     }
 
+    // Cài đặt dữ liệu mặc định
     private void CaiDatMacDinh() {
         edtTenSanPham.setText("");
         edtMoTa.setText("");
@@ -245,6 +250,7 @@ public class ThemSanPham extends AppCompatActivity {
         imageView.setImageResource(R.drawable.user_icon);
     }
 
+    //Chuyển đến Bộ sưu tập của máy và chọn hình
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         if(intent.resolveActivity(getPackageManager()) != null)
@@ -253,6 +259,7 @@ public class ThemSanPham extends AppCompatActivity {
         }
     }
 
+    // Kiểm tra quyền truy cập
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -268,6 +275,7 @@ public class ThemSanPham extends AppCompatActivity {
         }
     }
 
+    // Lấy dữ liệu trả về sau khi chọn hình và lưu vào các biến
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -283,11 +291,8 @@ public class ThemSanPham extends AppCompatActivity {
     }
 
 
+    // Tải hình ảnh lên Storage
     private void uploadImage() {
-       /* final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading Image...");
-        pd.show();*/
-
         final String randomKey = backgroundImageName;
         StorageReference riverRef = storageReference.child("Image/ " + randomKey);
 
@@ -295,26 +300,23 @@ public class ThemSanPham extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //pd.dismiss();
-                        //Snackbar.make(findViewById(android.R.id.content), "Image Uploaded", Snackbar.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //pd.dismiss();
-                        //Toast.makeText(getApplicationContext(), "Failed To Upload", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        /*double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Progress: " + (int) progressPercent + "%");*/
                     }
                 });
     }
 
+    // Lấy tên file ảnh đã chọn
     private String getFileName (Uri uri, Context context){
         String res = null;
         if(uri.getScheme().equals("content")){
@@ -338,7 +340,7 @@ public class ThemSanPham extends AppCompatActivity {
         return res;
     }
 
-
+    // Gán id vào các biến, cài đặt adapter và thiết lập ban đầu
     private void SetID() {
         edtTenSanPham = findViewById(R.id.edt_TenSanPham);
         spin_DanhMuc = findViewById(R.id.spin_DanhMucSanPham);

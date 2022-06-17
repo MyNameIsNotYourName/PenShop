@@ -45,7 +45,7 @@ import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietDonHang extends AppCompatActivity {
     private ListView listView;
-    private TextView txt_MaDonHang, txt_NgayDatHang, txt_Email, txt_DiaChi, txt_TongTien;
+    private TextView txt_MaDonHang, txt_NgayDatHang, txt_Email, txt_DiaChi, txt_TongTien, txt_TienMat;
     private TextView txt_HuyDonHang, txt_XacNhanThayDoi;
     private Spinner spin_TrangThaiGiaoHang;
     private ArrayList<ItemChiTietDonHang> arrayList;
@@ -58,7 +58,7 @@ public class ChiTietDonHang extends AppCompatActivity {
     private ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
     private ArrayAdapter<String> adapterSpinner;
     private ArrayList<String> arrayListSpinner = new ArrayList<>();
-    private int indexSpinner = -1;
+    private int indexSpinner = -1; // lưu vị trí của spinner khi chọn
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,19 +67,16 @@ public class ChiTietDonHang extends AppCompatActivity {
         SetID();
         GetIntent();
         TaiDuLieu();
-        LoadSpinnerData();
         Event();
     }
 
-    private void LoadSpinnerData() {
-
-    }
-
+    // Lấy dữ liệu từ QuanLyDonHang vào biến hoaDon
     private void GetIntent() {
         Intent intent = getIntent();
         hoaDon.setId( intent.getIntExtra("hoaDon", -1));
     }
 
+    // Tải dữ liệu từ Firebase vào các View
     private void TaiDuLieu() {
         chiTietHoaDonArrayList.clear();
         sanPhamArrayList.clear();
@@ -101,8 +98,8 @@ public class ChiTietDonHang extends AppCompatActivity {
                     GetChiTietHoaDon(hoaDon.getId());
                     final Handler handler = new Handler();
                     final LoadingDialog dialog = new LoadingDialog(ChiTietDonHang.this);
-                    dialog.startLoadingDialog();
-                    handler.postDelayed(new Runnable() {
+                    dialog.startLoadingDialog(); // hiển thị hoạt ảnh loading
+                    handler.postDelayed(new Runnable() { // thực thi các lệnh trong hàm run sau 1,5s
                         @Override
                         public void run() {
                             txt_DiaChi.setText(hoaDon.getDiaChi());
@@ -111,6 +108,7 @@ public class ChiTietDonHang extends AppCompatActivity {
                             txt_TongTien.setText(tongTien);
                             txt_MaDonHang.setText(String.valueOf(hoaDon.getId()));
                             txt_NgayDatHang.setText(hoaDon.getNgay());
+
                             if(hoaDon.getTrangThai() < 4)
                                 spin_TrangThaiGiaoHang.setSelection(hoaDon.getTrangThai());
                             else {
@@ -121,6 +119,16 @@ public class ChiTietDonHang extends AppCompatActivity {
                                 spin_TrangThaiGiaoHang.setSelection(0);
                                 spin_TrangThaiGiaoHang.setEnabled(false);
                                 tableLayout.setVisibility(View.GONE);
+                            }
+
+                            String isTienMat = "Thanh toán khi nhận hàng";
+                            String isNotTienMat = "Thanh toán online";
+                            if(hoaDon.isTienMat())
+                            {
+                                txt_TienMat.setText(isTienMat);
+                            }
+                            else{
+                                txt_TienMat.setText(isNotTienMat);
                             }
 
                             for(int i = 0; i < chiTietHoaDonArrayList.size(); i++){
@@ -134,7 +142,7 @@ public class ChiTietDonHang extends AppCompatActivity {
                             }
 
                             adapter.notifyDataSetChanged();
-                            dialog.dismissLoadingDialog();
+                            dialog.dismissLoadingDialog(); // tắt hoạt ảnh loading
                         }
                     }, 1500);
                 }
@@ -162,6 +170,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         });
     }
 
+    // Lấy dữ liệu ChiTietHoaDon từ Firebase
     private void GetChiTietHoaDon(int id) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("ChiTietHoaDon");
@@ -199,6 +208,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         });
     }
 
+    // Lấy dữ liệu SanPham từ Firebase
     private void GetSanPham() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SanPham");
@@ -227,7 +237,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         });
     }
 
-
+    // thực thi sự kiện khi người fudng thao tác với các View
     private void Event() {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -235,9 +245,11 @@ public class ChiTietDonHang extends AppCompatActivity {
                 finish();
             }
         });
+
         img_Add.setVisibility(View.INVISIBLE);
         img_Edit.setVisibility(View.INVISIBLE);
 
+        // Cập nhật trạng thái giao hàng
         spin_TrangThaiGiaoHang.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -250,6 +262,7 @@ public class ChiTietDonHang extends AppCompatActivity {
             }
         });
 
+        // Lưu thay đổi trạng thái
         txt_XacNhanThayDoi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -266,6 +279,7 @@ public class ChiTietDonHang extends AppCompatActivity {
             }
         });
 
+        // Cập nhật vào biến trangThai trên Firebase (trạng thái hủy đơn chỉ được cập nhật tại đây)
         txt_HuyDonHang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -283,7 +297,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         });
     }
 
-
+    // Gán id vào các biến và thiết lập, gán adapter và các dữ liệu ban đầu
     private void SetID() {
         txt_MaDonHang = findViewById(R.id.txt_MaDonHang);
         txt_NgayDatHang = findViewById(R.id.txt_NgayDatHang);
@@ -292,6 +306,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         txt_TongTien = findViewById(R.id.txt_TongTien);
         txt_HuyDonHang = findViewById(R.id.txt_HuyDonHang);
         txt_XacNhanThayDoi = findViewById(R.id.txt_XacNhanThayDoi);
+        txt_TienMat = findViewById(R.id.txt_TienMat);
         spin_TrangThaiGiaoHang = findViewById(R.id.spin_TrangThaiGiaoHang);
         listView = findViewById(R.id.list_DanhSachDonHang);
         imageView = findViewById(R.id.img_Back);
@@ -307,6 +322,7 @@ public class ChiTietDonHang extends AppCompatActivity {
         spin_TrangThaiGiaoHang.setAdapter(adapterSpinner);
     }
 
+    // Thêm dữ liệu vào Spinner
     private void ThemDuLieuArraySpinner() {
         arrayListSpinner.add("Chờ xác nhận");
         arrayListSpinner.add("Đã xác nhận");

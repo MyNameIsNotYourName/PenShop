@@ -91,6 +91,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         Event();
     }
 
+    // Lấy dữ liệu từ Firebase và lưu dữ liệu vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SanPham");
@@ -150,6 +151,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         });
     }
 
+    // Tìm vị trí trùng khới với vị trí id của sản phẩm lấy từ Firebase
     private int TimViTri(String type, int id) {
         if(type.equals("danhMuc"))
         {
@@ -172,10 +174,9 @@ public class ChiTietSanPham extends AppCompatActivity {
         return -1;
     }
 
+    // Lấy dữ liệu để hiển thị trong spinner
     private void LoadSpinnerData() {
-        //arrayListDanhMuc.clear();
         adapterDanhMuc.clear();
-        //arrayListThuongHieu.clear();
         adapterThuongHieu.clear();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -259,11 +260,13 @@ public class ChiTietSanPham extends AppCompatActivity {
         adapterThuongHieu.notifyDataSetChanged();
     }
 
+    // Lấy dữ liệu được gửi từ QuanLySanPham
     private void GetIntent() {
         Intent intent = getIntent();
         sanPham.setId( intent.getIntExtra("sanPham", -1));
     }
 
+    // Thực thi các sự kiện khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.INVISIBLE);
         img_Back.setOnClickListener(new View.OnClickListener() {
@@ -334,6 +337,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         });
     }
 
+    //Chuyển đến Bộ sưu tập của máy và chọn hình
     private void selectImage() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         if(intent.resolveActivity(getPackageManager()) != null)
@@ -342,6 +346,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         }
     }
 
+    // Cài đặt dữ liệu mặc định
     private void CaiDatMacDinh() {
        TuyChinhClick(false);
 
@@ -359,6 +364,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         spin_ThuongHieu.setSelection(viTriThuongHieu);
     }
 
+    // Lưu dữ liệu đã chỉnh sửa và cập nhật lên Firebase
     private void LuuThayDoi() {
         //Lấy id danh mục
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -401,6 +407,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         }
     }
 
+    // Gán id vào các biến và cài đặt adapter
     private void SetID() {
         img_Add = findViewById(R.id.img_Add);
         img_Back = findViewById(R.id.img_Back);
@@ -427,17 +434,19 @@ public class ChiTietSanPham extends AppCompatActivity {
         spin_ThuongHieu.setAdapter(adapterThuongHieu);
     }
 
+    // Dùng để chỉnh các view có thao tác được hay không
     private void TuyChinhClick(boolean b) {
-        edt_TenSanPham.setFocusable(b);
-        edt_GiaSanPham.setFocusable(b);
-        edt_MoTa.setFocusable(b);
-        edt_DaBan.setFocusable(b);
-        edt_ConLai.setFocusable(b);
-        img_HinhSanPham.setClickable(b);
+        edt_TenSanPham.setEnabled(b);
+        edt_GiaSanPham.setEnabled(b);
+        edt_MoTa.setEnabled(b);
+        edt_DaBan.setEnabled(b);
+        edt_ConLai.setEnabled(b);
+        img_HinhSanPham.setEnabled(b);
         spin_ThuongHieu.setEnabled(b);
         spin_DanhMuc.setEnabled(b);
     }
 
+    // Kiểm tra quyền truy cập
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -453,6 +462,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         }
     }
 
+    // Lấy kết quả trả về khi chọn ảnh và lưu vào các biến, view
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -460,14 +470,6 @@ public class ChiTietSanPham extends AppCompatActivity {
             if(data != null){
                 imageUri = data.getData();
                 if(imageUri != null){
-                    /*try {
-                        InputStream inputStream = getContentResolver().openInputStream(imageUri);
-                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        imageView.setImageBitmap(bitmap);
-                    }
-                    catch (IOException e){
-                        Toast.makeText(ThemSanPham.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }*/
                     img_HinhSanPham.setImageURI(imageUri);
                     backgroundImageName = getFileName(imageUri, getApplicationContext());
                     flagImage = 1;
@@ -476,12 +478,8 @@ public class ChiTietSanPham extends AppCompatActivity {
         }
     }
 
-
+    // Tải hình ảnh lên Storage
     private void uploadImage() {
-       /* final ProgressDialog pd = new ProgressDialog(this);
-        pd.setTitle("Uploading Image...");
-        pd.show();*/
-
         final String randomKey = backgroundImageName;
         StorageReference riverRef = storageReference.child("Image/ " + randomKey);
 
@@ -489,26 +487,24 @@ public class ChiTietSanPham extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        //pd.dismiss();
-                        //Snackbar.make(findViewById(android.R.id.content), "Image Uploaded", Snackbar.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        //pd.dismiss();
-                        //Toast.makeText(getApplicationContext(), "Failed To Upload", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                        /*double progressPercent = (100.00 * snapshot.getBytesTransferred() / snapshot.getTotalByteCount());
-                        pd.setMessage("Progress: " + (int) progressPercent + "%");*/
+
                     }
                 });
     }
 
+    // Lấy tên file của hình ảnh đã chọn
     private String getFileName (Uri uri, Context context){
         String res = null;
         if(uri.getScheme().equals("content")){
@@ -532,6 +528,7 @@ public class ChiTietSanPham extends AppCompatActivity {
         return res;
     }
 
+    // Lấy hình ảnh từ Storage theo tên được lưu trong backgroundImageName
     public void RetrieveImage(){
         String name  = backgroundImageName;
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("Image/ " + name);

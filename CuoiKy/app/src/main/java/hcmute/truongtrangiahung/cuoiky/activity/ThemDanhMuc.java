@@ -35,6 +35,7 @@ public class ThemDanhMuc extends AppCompatActivity {
         Event();
     }
 
+    // thực thi các sự kiện khi người dùng thao tác
     private void Event() {
         img_Add.setVisibility(View.INVISIBLE);
         img_Edit.setVisibility(View.INVISIBLE);
@@ -52,6 +53,7 @@ public class ThemDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Thêm dữ liệu vào Firebase
     private void ThemDuLieu() {
         //Lấy id danh mục
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -83,10 +85,12 @@ public class ThemDanhMuc extends AppCompatActivity {
         });
     }
 
+    // Cài đặt dữ liệu mặc định
     private void CaiDatMacDinh() {
         edt_TenDanhMuc.setText("");
     }
 
+    // Gán id vào các biến
     private void SetID() {
         edt_TenDanhMuc = findViewById(R.id.edt_TenDanhMuc);
         btn_Luu = findViewById(R.id.btn_Luu);

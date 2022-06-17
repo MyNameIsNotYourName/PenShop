@@ -67,6 +67,7 @@ public class ItemChiTietQuanLyAdapter extends BaseAdapter {
         return 0;
     }
 
+    // Lấy dữ liệu và hiển thị view ra màn hình
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -132,9 +133,10 @@ public class ItemChiTietQuanLyAdapter extends BaseAdapter {
         return view;
     }
 
+    // Xóa dữ liệu khỏi Firebase
     private void XoaDuLieu(View view, int typeFlag, int i) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // flag = 2 => DanhMuc; flag = 3 => ThuongHieu
+        // flag = 1 => SanPham; flag = 2 => DanhMuc; flag = 3 => ThuongHieu
         if(typeFlag == 1)
         {
             DatabaseReference myRef = database.getReference("SanPham/"+arrayList.get(i).getSanPham().getId());
@@ -171,6 +173,7 @@ public class ItemChiTietQuanLyAdapter extends BaseAdapter {
 
     }
 
+    // Lấy hình ảnh từ Storage thông qua arrayList.get(i).getHinh()
     public void RetrieveImage(View view, ImageView imageView, int i){
         String name  = arrayList.get(i).getHinh();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("Image/ " + name);

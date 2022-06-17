@@ -12,6 +12,32 @@ public class HoaDon {
     private String DiaChi;
     private String ghiChu;
     private int trangThai;
+    private boolean tienMat;
+
+    public boolean isTienMat() {
+        return tienMat;
+    }
+
+    public void setTienMat(boolean tienMat) {
+        this.tienMat = tienMat;
+    }
+
+    public HoaDon(int id, String tenTaiKhoan, String ngay, int phiVanChuyen, int tongTien, String ten, String SDT, String email, String diaChi, String ghiChu, int trangThai, boolean tienMat) {
+        this.id = id;
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.ngay = ngay;
+        this.phiVanChuyen = phiVanChuyen;
+        this.tongTien = tongTien;
+        this.ten = ten;
+        this.SDT = SDT;
+        this.email = email;
+        DiaChi = diaChi;
+        this.ghiChu = ghiChu;
+        this.trangThai = trangThai;
+        this.tienMat = tienMat;
+    }
+
+
 
     public String getTen() {
         return ten;

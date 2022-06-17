@@ -45,6 +45,7 @@ public class QuanLySanPham extends AppCompatActivity {
         Event();
     }
 
+    // thực thi các sự kiến khi người dùng thao tác
     private void Event() {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +74,7 @@ public class QuanLySanPham extends AppCompatActivity {
         });
     }
 
+    // Lấy dữ liệu từ Firebase để gán vào các biến
     private void TaiDuLieu() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("SanPham");
@@ -111,6 +113,7 @@ public class QuanLySanPham extends AppCompatActivity {
         });
     }
 
+    // Gán id vào các biến, cài đặt adapter và thiết lập ban đầu
     private void SetID() {
         listView = findViewById(R.id.list_QuanLySanPham);
         imageView = findViewById(R.id.img_Back);
