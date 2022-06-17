@@ -23,6 +23,7 @@ import hcmute.truongtrangiahung.cuoiky.Model.ThuongHieu;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ThemThuongHieu extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private EditText edt_TenThuongHieu;
     private CardView btn_Luu;
     private ImageView img_Add, img_Edit, img_Back;

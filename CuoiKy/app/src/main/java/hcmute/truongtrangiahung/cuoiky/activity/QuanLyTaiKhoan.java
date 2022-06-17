@@ -28,11 +28,15 @@ import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class QuanLyTaiKhoan extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ListView listView;
-    private ArrayList<ItemChiTietQuanLy> arrayList;
-    private ItemChiTietQuanLyAdapter adapter;
     private ImageView imageView,  img_Add, img_Edit;
 
+    // Chứa dữ liệu và hiển thị lên View
+    private ArrayList<ItemChiTietQuanLy> arrayList;
+    private ItemChiTietQuanLyAdapter adapter;
+
+    //Lưu dữ liệu, dùng để chuyển dữ liệu qua ChiTietTaiKhoan
     private ArrayList<TaiKhoan> arrayTaiKhoan  = new ArrayList<>();
 
     @Override

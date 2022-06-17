@@ -24,8 +24,11 @@ import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class AdminHome extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private CardView quanLyDonHang, quanLySanPham, quanLyDanhMuc, quanLyThuongHieu, quanLyTaiKhoan;
     private TextView txt_TenTaiKhoan;
+
+    // Lưu tên tài khoản, truy xuất dữ liệu trên Firebase
     private String idUser = "user1";
 
     @Override

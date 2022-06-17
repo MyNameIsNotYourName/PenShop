@@ -29,12 +29,14 @@ import hcmute.truongtrangiahung.cuoiky.Model.LoadingDialog;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietDanhMuc extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ImageView img_Add, img_Back, img_Edit;
     private EditText edt_TenDanhMuc;
     private TextView txt_MaDanhMuc, txt_HuyThayDoi, txt_LuuThayDoi;
     private TableLayout table_LuuThayDoi;
 
-    private DanhMuc danhMuc = new DanhMuc(); // Chứa dữ liệu từ intent chuyển qua
+    // Chứa dữ liệu từ intent chuyển qua
+    private DanhMuc danhMuc = new DanhMuc();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

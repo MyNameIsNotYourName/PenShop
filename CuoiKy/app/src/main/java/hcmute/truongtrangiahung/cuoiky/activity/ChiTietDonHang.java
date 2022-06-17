@@ -44,21 +44,28 @@ import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietDonHang extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ListView listView;
     private TextView txt_MaDonHang, txt_NgayDatHang, txt_Email, txt_DiaChi, txt_TongTien, txt_TienMat;
     private TextView txt_HuyDonHang, txt_XacNhanThayDoi;
     private Spinner spin_TrangThaiGiaoHang;
-    private ArrayList<ItemChiTietDonHang> arrayList;
-    private ItemChiTietDonHangAdapter adapter;
     private ImageView imageView, img_Add, img_Edit;
     private TableLayout tableLayout;
 
-    private HoaDon hoaDon = new HoaDon();
+    // Chứa dữ liệu và hiển thị lên View
+    private ArrayList<ItemChiTietDonHang> arrayList;
+    private ItemChiTietDonHangAdapter adapter;
+
+
+    private HoaDon hoaDon = new HoaDon(); // Chứa dữ liệu từ intent chuyển qua
+    private int indexSpinner = -1; // lưu vị trí của spinner khi chọn
+
+    // Chứa dữ liệu và hiển thị lên Spinner
     private ArrayList<ChiTietHoaDon> chiTietHoaDonArrayList = new ArrayList<>();
     private ArrayList<SanPham> sanPhamArrayList = new ArrayList<>();
     private ArrayAdapter<String> adapterSpinner;
     private ArrayList<String> arrayListSpinner = new ArrayList<>();
-    private int indexSpinner = -1; // lưu vị trí của spinner khi chọn
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

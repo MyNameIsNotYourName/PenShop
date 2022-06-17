@@ -27,11 +27,13 @@ import hcmute.truongtrangiahung.cuoiky.Model.ThuongHieu;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietThuongHieu extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ImageView img_Add, img_Back, img_Edit;
     private EditText edt_TenThuongHieu;
     private TextView txt_MaThuongHieu, txt_HuyThayDoi, txt_LuuThayDoi;
     private TableLayout table_LuuThayDoi;
 
+    // Chứa dữ liệu từ intent chuyển qua
     private ThuongHieu thuongHieu = new ThuongHieu();
 
     @Override

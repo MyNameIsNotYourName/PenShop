@@ -31,11 +31,15 @@ import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class QuanLyDonHang extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ListView listView;
-    private ArrayList<ItemQuanLyDonHang> arrayList;
-    private ItemQuanLyDonHangAdapter adapter;
     private ImageView imageView, img_Add, img_Edit;
 
+    // Chứa dữ liệu và hiển thị lên View
+    private ArrayList<ItemQuanLyDonHang> arrayList;
+    private ItemQuanLyDonHangAdapter adapter;
+
+    //Lưu dữ liệu, dùng để chuyển dữ liệu qua ChiTietDonHang
     private ArrayList<HoaDon> arrayHoaDon = new ArrayList<>();
 
     @Override

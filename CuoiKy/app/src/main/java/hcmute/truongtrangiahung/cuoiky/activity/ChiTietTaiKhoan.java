@@ -25,10 +25,12 @@ import hcmute.truongtrangiahung.cuoiky.Model.TaiKhoan;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietTaiKhoan extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ImageView img_Add, img_Back, img_Edit;
     private EditText edt_TenNguoiDung, edt_DiaChi, edt_SoDienThoai, edt_Email, edt_VaiTro;
     private TextView txt_TenTaiKhoan;
 
+    // Chứa dữ liệu từ intent chuyển qua
     private TaiKhoan taiKhoan = new TaiKhoan();
 
     @Override

@@ -22,6 +22,7 @@ import hcmute.truongtrangiahung.cuoiky.Model.IdLib;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ThemDanhMuc extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private EditText edt_TenDanhMuc;
     private CardView btn_Luu;
     private ImageView img_Add, img_Edit, img_Back;

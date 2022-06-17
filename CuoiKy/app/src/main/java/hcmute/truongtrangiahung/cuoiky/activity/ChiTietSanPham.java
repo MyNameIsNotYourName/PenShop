@@ -52,28 +52,32 @@ import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ChiTietSanPham extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private ImageView img_Add, img_Back, img_Edit, img_HinhSanPham;
     private EditText edt_TenSanPham, edt_GiaSanPham, edt_DaBan, edt_ConLai, edt_MoTa;
     private TextView txt_MaSanPham, txt_HuyThayDoi, txt_LuuThayDoi;
     private Spinner spin_DanhMuc, spin_ThuongHieu;
     private TableLayout table_LuuThayDoi;
 
+    // Chứa dữ liệu và hiển thị lên Spinner
     private ArrayAdapter<String> adapterThuongHieu;
     private ArrayAdapter<String> adapterDanhMuc;
     private ArrayList<String> arrayListThuongHieu = new ArrayList<>();
     private ArrayList<String> arrayListDanhMuc = new ArrayList<>();
-    private SanPham sanPham = new SanPham();
-    private int indexThuongHieu = -1;
-    private int indexDanhMuc = -1;
-    private int tempSpinDanhMucSize = 0;
-    private int tempSpinThuongHieuSize = 0;
-    private int flagImage = 0; // Kiểm tra xem có thay đổi hình ảnh không.
-    private String backgroundImageName = "null";
-    private Uri imageUri;
 
+    private SanPham sanPham = new SanPham(); // Chứa dữ liệu từ intent chuyển qua
+
+    private int indexThuongHieu = -1; // vị trí spinner thương hiệu
+    private int indexDanhMuc = -1; // vị trí spinner danh mục
+    private int flagImage = 0; // Kiểm tra xem có thay đổi hình ảnh không.
+    private String backgroundImageName = "null"; // lưu tên hình ảnh
+    private Uri imageUri; // chứa dữ liệu khi chọn hình ảnh
+
+    //Truy xuất dữ liệu trên Firebase Storage (Storage)
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
+    // Mã truy cập
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
 
@@ -188,13 +192,9 @@ public class ChiTietSanPham extends AppCompatActivity {
                 String danhMuc = snapshot.getValue(String.class);
                 arrayListDanhMuc.add(snapshot.getKey());
                 adapterDanhMuc.add(danhMuc);
-                tempSpinDanhMucSize += 1;
 
                 int viTriDanhMuc = TimViTri("danhMuc", sanPham.getDanhMuc());
                 spin_DanhMuc.setSelection(viTriDanhMuc);
-                //System.out.println("viTriDanhMuc: " + viTriDanhMuc);
-                System.out.println("IdDanhMuc: " + sanPham.getDanhMuc());
-                System.out.println("tempDanhMuc: " + tempSpinDanhMucSize);
             }
 
             @Override
@@ -227,11 +227,9 @@ public class ChiTietSanPham extends AppCompatActivity {
                     String thuongHieu = snapshot.getValue(String.class);
                     arrayListThuongHieu.add(snapshot.getKey());
                     adapterThuongHieu.add(thuongHieu);
-                    tempSpinThuongHieuSize += 1;
                     
                     int viTriThuongHieu = TimViTri("thuongHieu", sanPham.getThuongHieu());
                     spin_ThuongHieu.setSelection(viTriThuongHieu);
-                    System.out.println("tempThuongHieu: " + tempSpinThuongHieuSize);
                     adapterThuongHieu.notifyDataSetChanged();
             }
 

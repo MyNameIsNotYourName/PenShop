@@ -36,8 +36,8 @@ import hcmute.truongtrangiahung.cuoiky.R;
 import hcmute.truongtrangiahung.cuoiky.activity.ThemSanPham;
 
 public class ItemChiTietQuanLyAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<ItemChiTietQuanLy> arrayList;
+    private Context context; //lấy context của activity sử dụng adapter
+    private ArrayList<ItemChiTietQuanLy> arrayList; //lưu dữ liệu để hiên thị
     private int flag = 1;
 
 
@@ -107,6 +107,7 @@ public class ItemChiTietQuanLyAdapter extends BaseAdapter {
         img_Xoa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // hiển thị dialog lên màn hình
                 AlertDialog.Builder alertDialog = new AlertDialog.Builder(view.getContext());
                 alertDialog.setTitle("Xác nhận xóa");
                 alertDialog.setMessage("Bạn có muốn xóa?");

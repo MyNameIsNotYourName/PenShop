@@ -14,8 +14,8 @@ import hcmute.truongtrangiahung.cuoiky.Model.ItemQuanLyDonHang;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ItemQuanLyDonHangAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<ItemQuanLyDonHang> arrayList;
+    private Context context; //lấy context của activity sử dụng adapter
+    private ArrayList<ItemQuanLyDonHang> arrayList; //lưu dữ liệu để hiên thị
     @Override
     public int getCount() {
         return arrayList.size();

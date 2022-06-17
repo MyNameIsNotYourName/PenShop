@@ -29,8 +29,8 @@ import hcmute.truongtrangiahung.cuoiky.Model.ItemChiTietDonHang;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ItemChiTietDonHangAdapter extends BaseAdapter {
-    private Context context;
-    private ArrayList<ItemChiTietDonHang> arrayList;
+    private Context context; //lấy context của activity sử dụng adapter
+    private ArrayList<ItemChiTietDonHang> arrayList; //lưu dữ liệu để hiên thị
 
     public ItemChiTietDonHangAdapter(Context context, ArrayList<ItemChiTietDonHang> arrayList) {
         this.context = context;

@@ -54,23 +54,30 @@ import hcmute.truongtrangiahung.cuoiky.Model.SanPham;
 import hcmute.truongtrangiahung.cuoiky.R;
 
 public class ThemSanPham extends AppCompatActivity {
+    // ánh xạ với View để thực hiện các sự kiện khi người dùng thao tác
     private EditText edtTenSanPham, edtGia, edtDaBan, edtConLai, edtMoTa;
     private Spinner spin_DanhMuc, spin_ThuongHieu;
     private ImageView imageView, img_Add, img_Edit, img_Back;
     private CardView btnChonAnh, btnLuu;
 
+    //Truy xuất dữ liệu trên Firebase Storage (Storage)
     private FirebaseStorage storage;
     private StorageReference storageReference;
+
+    // chứa dữ liệu khi chọn hình ảnh
     private Uri imageUri;
 
+    // Chứa dữ liệu và hiển thị lên Spinner
     private ArrayAdapter<String> adapterThuongHieu;
     private ArrayAdapter<String> adapterDanhMuc;
     private final ArrayList<String> arrayListThuongHieu = new ArrayList<>();
     private final ArrayList<String> arrayListDanhMuc = new ArrayList<>();
-    private String backgroundImageName = "null";
-    private int indexThuongHieu = -1;
-    private int indexDanhMuc = -1;
 
+    private String backgroundImageName = "null"; // lưu tên hình ảnh
+    private int indexThuongHieu = -1; // vị trí spinner thương hiệu
+    private int indexDanhMuc = -1; // vị trí spinner danh mục
+
+    // Mã truy cập
     private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
     private static final int REQUEST_CODE_SELECT_IMAGE = 2;
 

@@ -17,6 +17,7 @@ public class LoadingDialog {
         this.activity = activity;
     }
 
+    // hiển thị dialog
     public void startLoadingDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         LayoutInflater inflater = activity.getLayoutInflater();
@@ -27,6 +28,7 @@ public class LoadingDialog {
         dialog.show();
     }
 
+    // tắt dialog
     public void dismissLoadingDialog(){
         dialog.dismiss();
     }
